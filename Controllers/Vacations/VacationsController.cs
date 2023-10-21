@@ -137,20 +137,20 @@ public class VacationsController : ControllerBase
 
 public class CreateVacationItemRequest
 {
-    public string Name { get; init; }
+    public required string Name { get; init; }
     public VacationItemCategory? vacationItemCategory { get; init; }
 }
 
 public class UpdateVacationItemRequest
 {
-    public string Name { get; init; }
+    public required string Name { get; init; }
     public VacationItemCategory? vacationItemCategory { get; init; }
 }
 
 public class VacationItemResponse
 {
     public Guid Id { get; init; }
-    public string Name { get; init; }
+    public required string Name { get; init; }
     public VacationItemCategory? vacationItemCategory { get; init; }
 }
 
