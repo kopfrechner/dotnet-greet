@@ -1,3 +1,4 @@
+using dotnet_greet.DbModels;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext

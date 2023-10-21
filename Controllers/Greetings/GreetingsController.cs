@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace dotnet_greet.Controllers;
+namespace dotnet_greet.Controllers.Greetings;
 
 [ApiController]
 [Route("[controller]")]
