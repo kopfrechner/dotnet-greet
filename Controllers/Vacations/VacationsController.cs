@@ -40,7 +40,7 @@ public class VacationsController : ControllerBase
         return CreatedAtAction(nameof(GetVacationItem), new { id = vacationItem.Id }, vacationItem);
     }
 
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetVacationItem([FromRoute] Guid id)
     {
