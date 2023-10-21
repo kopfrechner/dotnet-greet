@@ -5,7 +5,7 @@ namespace dotnet_greet.DbModels;
 
 public class VacationItem
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
     public string Name { get; set; }
     public VacationItemCategory? Category { get; set; }
 }
