@@ -44,7 +44,6 @@ public class VacationsController : ControllerBase
         [FromQuery] bool idsOnly = false, 
         [FromQuery] string? itemName = null)
     {
-        
         var vacationsQuery = _db.VacationItems.AsQueryable();
 
         var filterCategories = category != null;
