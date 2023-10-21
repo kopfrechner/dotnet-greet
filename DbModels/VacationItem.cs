@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace dotnet_greet.DbModels;
 
-public class VacationItem {
+public class VacationItem
+{
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public VacationItemCategory? Category{ get; set; }
+    public VacationItemCategory? Category { get; set; }
 }
 
 
@@ -19,7 +20,8 @@ public class VacationItemConfiguration : IEntityTypeConfiguration<VacationItem>
     }
 }
 
-public enum VacationItemCategory {
+public enum VacationItemCategory
+{
     CLOTHING,
     ACCESSIOURS,
     ELECTRONICS,

@@ -12,7 +12,7 @@ public class GreetingsController : ControllerBase
 
     public GreetingsController(
         ILogger<GreetingsController> logger,
-        IOptions<GreetOptions> greetOptions) 
+        IOptions<GreetOptions> greetOptions)
     {
         _logger = logger;
         _greetOptions = greetOptions.Value;
