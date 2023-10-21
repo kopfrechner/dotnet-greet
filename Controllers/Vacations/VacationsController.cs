@@ -13,7 +13,7 @@ public class VacationsController : ControllerBase
 
     public VacationsController(
         ILogger<VacationsController> logger,
-        ApplicationDbContext db)
+        ApplicationDbContext db) 
     {
         _logger = logger;
         _db = db;
@@ -37,7 +37,7 @@ public class VacationsController : ControllerBase
         await _db.AddAsync(vacationItem);
         await _db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetVacationItem), new { id = vacationItem.Id }, vacationItem);
+        return CreatedAtAction(nameof(GetVacationItem), new { id = vacationItem.Id }, null);
     }
 
 
@@ -60,8 +60,8 @@ public class VacationsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAllVacationItem(
-        [FromQuery] VacationItemCategory? category = null,
-        [FromQuery] bool idsOnly = false,
+        [FromQuery] VacationItemCategory? category = null, 
+        [FromQuery] bool idsOnly = false, 
         [FromQuery] string? itemName = null)
     {
         var vacationsQuery = _db.VacationItems.AsQueryable();
@@ -84,7 +84,7 @@ public class VacationsController : ControllerBase
                 .Select(it => it.Id)
                 .ToListAsync());
         }
-
+        
         return Ok(await vacationsQuery
             .Select(it => new VacationItemResponse
             {
@@ -95,7 +95,7 @@ public class VacationsController : ControllerBase
             .ToListAsync());
     }
 
-
+    
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] UpdateVacationItemRequest updateVacationItemRequest)
     {
@@ -109,10 +109,10 @@ public class VacationsController : ControllerBase
         {
             return BadRequest($"Id {id} does not exist.");
         }
-
+        
         vacationItem.Name = updateVacationItemRequest.Name;
         vacationItem.Category = updateVacationItemRequest.vacationItemCategory.toDbEnum();
-
+        
         await _db.SaveChangesAsync();
 
         return Ok();
@@ -128,7 +128,7 @@ public class VacationsController : ControllerBase
 
 
         _db.Remove(_db.VacationItems.Single(x => x.Id == id));
-
+        
         await _db.SaveChangesAsync();
 
         return NoContent();
@@ -159,31 +159,4 @@ public enum VacationItemCategory
     CLOTHING,
     ACCESSIOURS,
     ELECTRONICS
-}
-
-public static class VacationItemCategoryExtensions
-{
-    public static DbModels.VacationItemCategory? toDbEnum(this VacationItemCategory? vacationItemCategory)
-    {
-        return vacationItemCategory switch
-        {
-            VacationItemCategory.CLOTHING => DbModels.VacationItemCategory.CLOTHING,
-            VacationItemCategory.ACCESSIOURS => DbModels.VacationItemCategory.ACCESSIOURS,
-            VacationItemCategory.ELECTRONICS => DbModels.VacationItemCategory.ELECTRONICS,
-            null => null,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-    }
-
-    public static VacationItemCategory? toApiEnum(this DbModels.VacationItemCategory? vacationItemCategory)
-    {
-        return vacationItemCategory switch
-        {
-            DbModels.VacationItemCategory.CLOTHING => VacationItemCategory.CLOTHING,
-            DbModels.VacationItemCategory.ACCESSIOURS => VacationItemCategory.ACCESSIOURS,
-            DbModels.VacationItemCategory.ELECTRONICS => VacationItemCategory.ELECTRONICS,
-            null => null,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-    }
 }
