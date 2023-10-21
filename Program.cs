@@ -7,6 +7,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<dotnet_greet.Controllers.GreetOptions>(
+    builder.Configuration.GetSection(
+        key: nameof(dotnet_greet.Controllers.GreetOptions)));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
