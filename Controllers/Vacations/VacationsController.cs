@@ -40,6 +40,24 @@ public class VacationsController : ControllerBase
         return CreatedAtAction(nameof(GetVacationItem), new { id = vacationItem.Id }, vacationItem);
     }
 
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetVacationItem([FromRoute] Guid id)
+    {
+        var vacationItem = await _db.VacationItems.FindAsync(id);
+        if (vacationItem == null)
+        {
+            return BadRequest($"Id {id} does not exist.");
+        }
+
+        return Ok(new VacationItemResponse
+        {
+            Id = vacationItem.Id,
+            Name = vacationItem.Name,
+            vacationItemCategory = vacationItem.Category.toApiEnum()
+        });
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetAllVacationItem(
         [FromQuery] VacationItemCategory? category = null,
@@ -77,22 +95,6 @@ public class VacationsController : ControllerBase
             .ToListAsync());
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetVacationItem([FromRoute] Guid id)
-    {
-        var vacationItem = await _db.VacationItems.FindAsync(id);
-        if (vacationItem == null)
-        {
-            return BadRequest($"Id {id} does not exist.");
-        }
-
-        return Ok(new VacationItemResponse
-        {
-            Id = vacationItem.Id,
-            Name = vacationItem.Name,
-            vacationItemCategory = vacationItem.Category.toApiEnum()
-        });
-    }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] UpdateVacationItemRequest updateVacationItemRequest)
