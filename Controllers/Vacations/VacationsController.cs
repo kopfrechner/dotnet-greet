@@ -39,15 +39,24 @@ public class VacationsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllVacationItem([FromQuery] VacationItemCategory? category, [FromQuery] bool idsOnly = false)
+    public async Task<IActionResult> GetAllVacationItem(
+        [FromQuery] VacationItemCategory? category = null, 
+        [FromQuery] bool idsOnly = false, 
+        [FromQuery] string? itemName = null)
     {
-        var filterCategories = category != null;
-
-        var vacationsQuery = filterCategories 
-            ? _db.VacationItems.Where(it => it.Category == category.toDbEnum())
-            : _db.VacationItems;
-
         
+        var vacationsQuery = _db.VacationItems.AsQueryable();
+
+        var filterCategories = category != null;
+        if (filterCategories) {
+            vacationsQuery = vacationsQuery.Where(it => it.Category == category.toDbEnum());
+        }
+
+        var filterItemName = itemName != null;
+        if (filterItemName) {
+            vacationsQuery = vacationsQuery.Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
+        }
+
         if (idsOnly) {
             return Ok(await vacationsQuery
                 .Select(it => it.Id)
