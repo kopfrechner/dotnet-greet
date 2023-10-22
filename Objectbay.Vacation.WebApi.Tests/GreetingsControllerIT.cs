@@ -3,31 +3,24 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Objectbay.Vacation.WebApi.Tests;
 
-public class BasicTests
+public class GreetingsControllerIT
     : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public BasicTests(WebApplicationFactory<Program> factory)
+    public GreetingsControllerIT(WebApplicationFactory<Program> factory)
     {
         _factory = factory;
     }
 
     [Fact]
-    public void Spring_should_be_cool()
-    {
-        "spring".Should().Be("cool");
-    }
-
-    [Theory]
-    [InlineData("/greetings")]
-    public async Task Get_Greet(string url)
+    public async Task Get_Greeting()
     {
         // Arrange
         var client = _factory.CreateClient();
 
         // Act
-        var response = await client.GetAsync(url);
+        var response = await client.GetAsync("/greetings");
 
         // Assert
         response.EnsureSuccessStatusCode(); // Status Code 200-299
