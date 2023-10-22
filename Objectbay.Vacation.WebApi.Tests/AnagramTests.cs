@@ -17,7 +17,6 @@ public class AnagramTests
     }
 }
 
-
 internal static class AnagramTrimmerExtension {
     public static string ToAnagramCheckable(this string word) =>
         string.Concat(
