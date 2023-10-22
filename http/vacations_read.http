@@ -1,1 +1,1 @@
-GET http://localhost:5280/Vacations/48ab8234-b142-46ed-a817-121ce2aacaab
+GET http://localhost:5280/vacationitems/48ab8234-b142-46ed-a817-121ce2aacaab

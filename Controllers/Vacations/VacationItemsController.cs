@@ -6,14 +6,14 @@ namespace dotnet_greet.Controllers.Vacations;
 
 [ApiController]
 [Route("[controller]")]
-public class VacationsController : ControllerBase
+public class VacationItemsController : ControllerBase
 {
-    private readonly ILogger<VacationsController> _logger;
+    private readonly ILogger<VacationItemsController> _logger;
     private readonly ApplicationDbContext _db;
 
-    public VacationsController(
-        ILogger<VacationsController> logger,
-        ApplicationDbContext db) 
+    public VacationItemsController(
+        ILogger<VacationItemsController> logger,
+        ApplicationDbContext db)
     {
         _logger = logger;
         _db = db;
@@ -60,8 +60,8 @@ public class VacationsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAllVacationItem(
-        [FromQuery] VacationItemCategory? category = null, 
-        [FromQuery] bool idsOnly = false, 
+        [FromQuery] VacationItemCategory? category = null,
+        [FromQuery] bool idsOnly = false,
         [FromQuery] string? itemName = null)
     {
         var vacationsQuery = _db.VacationItems.AsQueryable();
@@ -84,7 +84,7 @@ public class VacationsController : ControllerBase
                 .Select(it => it.Id)
                 .ToListAsync());
         }
-        
+
         return Ok(await vacationsQuery
             .Select(it => new VacationItemResponse
             {
@@ -95,7 +95,7 @@ public class VacationsController : ControllerBase
             .ToListAsync());
     }
 
-    
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] UpdateVacationItemRequest updateVacationItemRequest)
     {
@@ -109,10 +109,10 @@ public class VacationsController : ControllerBase
         {
             return BadRequest($"Id {id} does not exist.");
         }
-        
+
         vacationItem.Name = updateVacationItemRequest.Name;
         vacationItem.Category = updateVacationItemRequest.vacationItemCategory.ToDbEnum();
-        
+
         await _db.SaveChangesAsync();
 
         return Ok();
@@ -128,7 +128,7 @@ public class VacationsController : ControllerBase
 
 
         _db.Remove(_db.VacationItems.Single(x => x.Id == id));
-        
+
         await _db.SaveChangesAsync();
 
         return NoContent();
