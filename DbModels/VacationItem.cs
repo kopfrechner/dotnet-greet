@@ -25,4 +25,5 @@ public enum VacationItemCategory
     CLOTHING,
     ACCESSIOURS,
     ELECTRONICS,
+    SURVIVAL_ESSENTIALS
 }

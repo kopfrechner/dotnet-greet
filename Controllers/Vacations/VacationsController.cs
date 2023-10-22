@@ -31,7 +31,7 @@ public class VacationsController : ControllerBase
         var vacationItem = new VacationItem
         {
             Name = vacationItemRequest.Name,
-            Category = vacationItemRequest.vacationItemCategory.toDbEnum()
+            Category = vacationItemRequest.vacationItemCategory.ToDbEnum()
         };
 
         await _db.AddAsync(vacationItem);
@@ -54,7 +54,7 @@ public class VacationsController : ControllerBase
         {
             Id = vacationItem.Id,
             Name = vacationItem.Name,
-            vacationItemCategory = vacationItem.Category.toApiEnum()
+            vacationItemCategory = vacationItem.Category.ToApiEnum()
         });
     }
 
@@ -69,7 +69,7 @@ public class VacationsController : ControllerBase
         var filterCategories = category != null;
         if (filterCategories)
         {
-            vacationsQuery = vacationsQuery.Where(it => it.Category == category.toDbEnum());
+            vacationsQuery = vacationsQuery.Where(it => it.Category == category.ToDbEnum());
         }
 
         var filterItemName = itemName != null;
@@ -90,7 +90,7 @@ public class VacationsController : ControllerBase
             {
                 Id = it.Id,
                 Name = it.Name,
-                vacationItemCategory = it.Category.toApiEnum()
+                vacationItemCategory = it.Category.ToApiEnum()
             })
             .ToListAsync());
     }
@@ -111,7 +111,7 @@ public class VacationsController : ControllerBase
         }
         
         vacationItem.Name = updateVacationItemRequest.Name;
-        vacationItem.Category = updateVacationItemRequest.vacationItemCategory.toDbEnum();
+        vacationItem.Category = updateVacationItemRequest.vacationItemCategory.ToDbEnum();
         
         await _db.SaveChangesAsync();
 
@@ -158,5 +158,6 @@ public enum VacationItemCategory
 {
     CLOTHING,
     ACCESSIOURS,
-    ELECTRONICS
+    ELECTRONICS,
+    SURVIVAL_ESSENTIALS
 }
