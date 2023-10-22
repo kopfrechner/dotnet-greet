@@ -2,8 +2,8 @@ using FluentAssertions;
 
 namespace Objectbay.Vacation.WebApi.Tests;
 
-public class AnagramTests 
-{    
+public class AnagramTests
+{
     [Theory]
     [InlineData("Elvis", "Lives")]
     [InlineData("Dormitory", "Dirty Room")]
