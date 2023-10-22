@@ -10,8 +10,8 @@ public class AnagramTests
     [InlineData("Vacation time", "I am not active")]
     public void Check_anagram(string word, string anagram)
     {
-        var orderedWord = word.OrderBy(x => x).ToString();
-        var orderedAnagram = anagram.OrderBy(x => x).ToString();
+        var orderedWord = string.Concat(word.ToLower().Where(c => !Char.IsWhiteSpace(c)).OrderByDescending(x => x));
+        var orderedAnagram = string.Concat(anagram.ToLower().Where(c => !Char.IsWhiteSpace(c)).OrderByDescending(x => x));
 
         orderedAnagram.Should().Be(orderedWord);
     }
