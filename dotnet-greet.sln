@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-greet", "Objectbay.Vacation.WebApi/Objectbay.Vacation.WebApi.csproj", "{E6754EA0-C698-4FDF-BC94-63EB5605CDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-greet", "Objectbay.Vacation.WebApi\Objectbay.Vacation.WebApi.csproj", "{E6754EA0-C698-4FDF-BC94-63EB5605CDFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Objectbay.Vacation.WebApi.Tests", "Objectbay.Vacation.WebApi.Tests\Objectbay.Vacation.WebApi.Tests.csproj", "{8D7244B8-E10A-4D31-9DB2-53DD9FAD5741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E6754EA0-C698-4FDF-BC94-63EB5605CDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6754EA0-C698-4FDF-BC94-63EB5605CDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6754EA0-C698-4FDF-BC94-63EB5605CDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7244B8-E10A-4D31-9DB2-53DD9FAD5741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7244B8-E10A-4D31-9DB2-53DD9FAD5741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7244B8-E10A-4D31-9DB2-53DD9FAD5741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7244B8-E10A-4D31-9DB2-53DD9FAD5741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
