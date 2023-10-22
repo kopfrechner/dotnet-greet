@@ -10,9 +10,19 @@ public class AnagramTests
     [InlineData("Vacation time", "I am not active")]
     public void Check_anagram(string word, string anagram)
     {
-        var orderedWord = string.Concat(word.ToLower().Where(c => !Char.IsWhiteSpace(c)).OrderByDescending(x => x));
-        var orderedAnagram = string.Concat(anagram.ToLower().Where(c => !Char.IsWhiteSpace(c)).OrderByDescending(x => x));
+        var checkableWord = word.ToAnagramCheckable();
+        var checkableAnagram = anagram.ToAnagramCheckable();
 
-        orderedAnagram.Should().Be(orderedWord);
+        checkableAnagram.Should().Be(checkableWord);
     }
+}
+
+
+internal static class AnagramTrimmerExtension {
+    public static string ToAnagramCheckable(this string word) =>
+        string.Concat(
+            word.ToLower()
+                .Where(c => !Char.IsWhiteSpace(c))
+                .OrderByDescending(x => x)
+        );
 }
