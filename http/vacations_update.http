@@ -1,0 +1,7 @@
+PUT http://localhost:5280/vacations/48ab8234-b142-46ed-a817-121ce2aacaab
+Content-Type: application/json
+
+{
+  "name": "2 Beer",
+  "vacationItemCategory": 3
+}
