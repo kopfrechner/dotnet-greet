@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+       : base(options) { }
 
     public DbSet<VacationItem> VacationItems { get; set; } = null!;
 }
