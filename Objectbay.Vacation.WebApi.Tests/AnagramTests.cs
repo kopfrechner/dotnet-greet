@@ -10,15 +10,15 @@ public class AnagramTests
     [InlineData("Vacation time", "I am not active")]
     public void Check_anagram(string word, string anagram)
     {
-        var checkableWord = word.ToAnagramCheckable();
-        var checkableAnagram = anagram.ToAnagramCheckable();
+        var checkableWord = word.ToCheckableAnagram();
+        var checkableAnagram = anagram.ToCheckableAnagram();
 
         checkableAnagram.Should().Be(checkableWord);
     }
 }
 
 internal static class AnagramTrimmerExtension {
-    public static string ToAnagramCheckable(this string word) =>
+    public static string ToCheckableAnagram(this string word) =>
         string.Concat(
             word.ToLower()
                 .Where(c => !Char.IsWhiteSpace(c))
