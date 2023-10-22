@@ -14,9 +14,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("mypostgres"));
 });
 
-builder.Services.Configure<dotnet_greet.Controllers.GreetOptions>(
+builder.Services.Configure<Objectbay.Vacation.WebApi.Controllers.GreetOptions>(
     builder.Configuration.GetSection(
-        key: nameof(dotnet_greet.Controllers.GreetOptions)));
+        key: nameof(Objectbay.Vacation.WebApi.Controllers.GreetOptions)));
 
 var app = builder.Build();
 

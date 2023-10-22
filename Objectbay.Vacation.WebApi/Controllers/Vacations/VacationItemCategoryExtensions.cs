@@ -1,4 +1,4 @@
-namespace dotnet_greet.Controllers.Vacations;
+namespace Objectbay.Vacation.WebApi.Controllers.Vacations;
 
 public static class VacationItemCategoryExtensions
 {

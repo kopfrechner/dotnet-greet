@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace dotnet_greet.DbModels;
+namespace Objectbay.Vacation.WebApi.DbModels;
 
 public class VacationItem
 {

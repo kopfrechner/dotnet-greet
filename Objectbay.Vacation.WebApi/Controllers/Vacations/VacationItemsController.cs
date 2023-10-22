@@ -1,8 +1,8 @@
-using dotnet_greet.DbModels;
+using Objectbay.Vacation.WebApi.DbModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnet_greet.Controllers.Vacations;
+namespace Objectbay.Vacation.WebApi.Controllers.Vacations;
 
 [ApiController]
 [Route("[controller]")]

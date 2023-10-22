@@ -1,4 +1,4 @@
-using dotnet_greet.DbModels;
+using Objectbay.Vacation.WebApi.DbModels;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext

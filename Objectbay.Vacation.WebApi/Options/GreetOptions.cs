@@ -1,4 +1,4 @@
-namespace dotnet_greet.Controllers;
+namespace Objectbay.Vacation.WebApi.Controllers;
 
 public class GreetOptions
 {

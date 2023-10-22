@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace dotnet_greet.Migrations
+namespace Objectbay.Vacation.WebApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
