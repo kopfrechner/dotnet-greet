@@ -18,17 +18,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.Configure<Objectbay.Vacation.WebApi.Controllers.GreetOptions>(
-    builder.Configuration.GetSection(
-        key: nameof(Objectbay.Vacation.WebApi.Controllers.GreetOptions)));
+    builder.Configuration.GetSection(nameof(Objectbay.Vacation.WebApi.Controllers.GreetOptions))
+);
 
 var app = builder.Build();
 
 // Apply migrations on startup
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
-}
+app.ApplyMigrations();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
@@ -46,3 +42,15 @@ app.MapControllers();
 app.Run();
 
 public partial class Program { }
+
+public static class WebApplicationExtensions 
+{
+    public static void ApplyMigrations(this WebApplication app)
+    {
+        using (var scope = app.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            db.Database.Migrate();
+        }
+    }
+}
