@@ -43,7 +43,7 @@ app.Run();
 
 public partial class Program { }
 
-public static class WebApplicationExtensions 
+public static class WebApplicationExtensions
 {
     public static void ApplyMigrations(this WebApplication app)
     {
