@@ -13,7 +13,7 @@ public class GreetingsControllerIT
         _factory = factory;
     }
 
-    [Fact(Skip = "true")]
+    [Fact]
     public async Task Get_Greeting()
     {
         // Arrange
@@ -25,10 +25,10 @@ public class GreetingsControllerIT
         // Assert
         response.EnsureSuccessStatusCode(); // Status Code 200-299
 
-        var contnetType = response?.Content?.Headers?.ContentType?.ToString();
+        var contentType = response?.Content?.Headers?.ContentType?.ToString();
         string content = await (response?.Content?.ReadAsStringAsync() ?? Task.FromResult(""));
 
-        contnetType.Should().StartWith("text/plain");
+        contentType.Should().StartWith("text/plain");
         content.Should().StartWith("Hello").And.Contain(", you're using");
     }
 }
