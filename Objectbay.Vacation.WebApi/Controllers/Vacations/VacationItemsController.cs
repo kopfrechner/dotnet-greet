@@ -61,7 +61,6 @@ public class VacationItemsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllVacationItem(
         [FromQuery] VacationItemCategory? category = null,
-        [FromQuery] bool idsOnly = false,
         [FromQuery] string? itemName = null)
     {
         var vacationsQuery = _db.VacationItems.AsQueryable();
@@ -76,13 +75,6 @@ public class VacationItemsController : ControllerBase
         if (filterItemName)
         {
             vacationsQuery = vacationsQuery.Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
-        }
-
-        if (idsOnly)
-        {
-            return Ok(await vacationsQuery
-                .Select(it => it.Id)
-                .ToListAsync());
         }
 
         return Ok(await vacationsQuery
