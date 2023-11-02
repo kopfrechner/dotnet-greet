@@ -149,7 +149,7 @@ public class VacationItemResponse
 public enum VacationItemCategory
 {
     CLOTHING,
-    ACCESSIOURS,
+    ACCESSORIES,
     ELECTRONICS,
     SURVIVAL_ESSENTIALS
 }

@@ -8,7 +8,7 @@ public static class VacationItemCategoryExtensions
         {
             null => null,
             VacationItemCategory.CLOTHING => DbModels.VacationItemCategory.CLOTHING,
-            VacationItemCategory.ACCESSIOURS => DbModels.VacationItemCategory.ACCESSIOURS,
+            VacationItemCategory.ACCESSORIES => DbModels.VacationItemCategory.ACCESSORIES,
             VacationItemCategory.ELECTRONICS => DbModels.VacationItemCategory.ELECTRONICS,
             VacationItemCategory.SURVIVAL_ESSENTIALS => DbModels.VacationItemCategory.SURVIVAL_ESSENTIALS,
             _ => throw new ArgumentOutOfRangeException()
@@ -21,7 +21,7 @@ public static class VacationItemCategoryExtensions
         {
             null => null,
             DbModels.VacationItemCategory.CLOTHING => VacationItemCategory.CLOTHING,
-            DbModels.VacationItemCategory.ACCESSIOURS => VacationItemCategory.ACCESSIOURS,
+            DbModels.VacationItemCategory.ACCESSORIES => VacationItemCategory.ACCESSORIES,
             DbModels.VacationItemCategory.ELECTRONICS => VacationItemCategory.ELECTRONICS,
             DbModels.VacationItemCategory.SURVIVAL_ESSENTIALS => VacationItemCategory.SURVIVAL_ESSENTIALS,
             _ => throw new ArgumentOutOfRangeException()
