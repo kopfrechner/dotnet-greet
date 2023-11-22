@@ -21,18 +21,13 @@ public class VacationItemsController : ControllerBase
 
 
     [HttpPost]
-    public async Task<IActionResult> CreateVacationItem([FromBody] CreateVacationItemRequest vacationItemRequest)
+    public async Task<IActionResult> CreateVacationItem([FromBody] VacationItem vacationItem)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
 
-        var vacationItem = new VacationItem
-        {
-            Name = vacationItemRequest.Name,
-            Category = vacationItemRequest.vacationItemCategory.ToDbEnum()
-        };
 
         await _db.AddAsync(vacationItem);
         await _db.SaveChangesAsync();
@@ -50,12 +45,7 @@ public class VacationItemsController : ControllerBase
             return BadRequest($"Id {id} does not exist.");
         }
 
-        return Ok(new VacationItemResponse
-        {
-            Id = vacationItem.Id,
-            Name = vacationItem.Name,
-            vacationItemCategory = vacationItem.Category.ToApiEnum()
-        });
+        return Ok(vacationItem);
     }
 
     [HttpGet]
@@ -68,7 +58,7 @@ public class VacationItemsController : ControllerBase
         var filterCategories = category != null;
         if (filterCategories)
         {
-            vacationsQuery = vacationsQuery.Where(it => it.Category == category.ToDbEnum());
+            vacationsQuery = vacationsQuery.Where(it => it.Category == category);
         }
 
         var filterItemName = itemName != null;
@@ -77,33 +67,26 @@ public class VacationItemsController : ControllerBase
             vacationsQuery = vacationsQuery.Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
         }
 
-        return Ok(await vacationsQuery
-            .Select(it => new VacationItemResponse
-            {
-                Id = it.Id,
-                Name = it.Name,
-                vacationItemCategory = it.Category.ToApiEnum()
-            })
-            .ToListAsync());
+        return Ok(await vacationsQuery.ToListAsync());
     }
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] UpdateVacationItemRequest updateVacationItemRequest)
+    public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] VacationItem vacationItem)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
 
-        var vacationItem = await _db.VacationItems.FindAsync(id);
-        if (vacationItem == null)
+        var vacationItemToUpdate = await _db.VacationItems.FindAsync(id);
+        if (vacationItemToUpdate == null)
         {
             return BadRequest($"Id {id} does not exist.");
         }
 
-        vacationItem.Name = updateVacationItemRequest.Name;
-        vacationItem.Category = updateVacationItemRequest.vacationItemCategory.ToDbEnum();
+        vacationItemToUpdate.Name = vacationItem.Name;
+        vacationItemToUpdate.Category = vacationItem.Category;
 
         await _db.SaveChangesAsync();
 
@@ -125,31 +108,4 @@ public class VacationItemsController : ControllerBase
 
         return NoContent();
     }
-}
-
-public class CreateVacationItemRequest
-{
-    public required string Name { get; init; }
-    public VacationItemCategory? vacationItemCategory { get; init; }
-}
-
-public class UpdateVacationItemRequest
-{
-    public required string Name { get; init; }
-    public VacationItemCategory? vacationItemCategory { get; init; }
-}
-
-public class VacationItemResponse
-{
-    public Guid Id { get; init; }
-    public required string Name { get; init; }
-    public VacationItemCategory? vacationItemCategory { get; init; }
-}
-
-public enum VacationItemCategory
-{
-    CLOTHING,
-    ACCESSORIES,
-    ELECTRONICS,
-    SURVIVAL_ESSENTIALS
 }

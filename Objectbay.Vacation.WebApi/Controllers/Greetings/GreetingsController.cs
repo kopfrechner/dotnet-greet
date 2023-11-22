@@ -21,6 +21,7 @@ public class GreetingsController : ControllerBase
     [HttpGet(Name = "GreetMe")]
     public string GreetMe()
     {
+        _logger.LogInformation("GreetMe called");
         return $"Hello {_greetOptions.Who}, you're using {_greetOptions.From} environment";
     }
 }
