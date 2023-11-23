@@ -21,7 +21,7 @@ namespace Objectbay.Vacation.WebApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Objectbay.Vacation.WebApi.DbModels.VacationItem", b =>
+            modelBuilder.Entity("VacationItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,21 +36,7 @@ namespace Objectbay.Vacation.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VacationItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3fb362d5-18c3-45de-813e-6147adbc3d9a"),
-                            Category = 0,
-                            Name = "Badehose"
-                        },
-                        new
-                        {
-                            Id = new Guid("c37f373d-6869-48a2-a8c0-2e3b2626da6a"),
-                            Category = 3,
-                            Name = "Sonnencreme"
-                        });
+                    b.ToTable("VacationItems", (string)null);
                 });
 #pragma warning restore 612, 618
         }
