@@ -24,21 +24,17 @@ public class VacationItemsController : ControllerBase
     public async Task<IActionResult> CreateVacationItem(
         [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
-
-        var vacationItem = await _db.AddAsync(new VacationItem {
+        var vacationItem = new VacationItem {
             Name = vacationItemRequest.Name,
             Category = vacationItemRequest.Category
-        });
-
+        };
+        
+        await _db.AddAsync(vacationItem);
         await _db.SaveChangesAsync();
 
-        return CreatedAtAction(
+        return CreatedAtAction( 
             nameof(GetVacationItem), 
-            new { id = vacationItem.Entity.Id }, null
+            new { id = vacationItem.Id }, null
         );
     }
 
@@ -86,11 +82,6 @@ public class VacationItemsController : ControllerBase
         [FromRoute] Guid id, 
         [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
-
         var vacationItemToUpdate = await _db.VacationItems.FindAsync(id);
         if (vacationItemToUpdate == null)
         {
@@ -109,14 +100,7 @@ public class VacationItemsController : ControllerBase
     public async Task<IActionResult> DeleteVacationItem(
         [FromRoute] Guid id)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
-
-
         _db.Remove(_db.VacationItems.Single(x => x.Id == id));
-
         await _db.SaveChangesAsync();
 
         return NoContent();
