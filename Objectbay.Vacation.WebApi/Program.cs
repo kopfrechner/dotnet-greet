@@ -3,27 +3,30 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configure services
 builder.Services.AddControllers().AddJsonOptions(
     o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
 );
 builder.Services.AddSwaggerGen();
 
+
+// Configure DB
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("mypostgres"));
 });
 
+
+// Configure Options
 builder.Services.Configure<Objectbay.Vacation.WebApi.Controllers.GreetOptions>(
     builder.Configuration.GetSection(nameof(Objectbay.Vacation.WebApi.Controllers.GreetOptions))
 );
 
-var app = builder.Build();
 
-// Apply migrations on startup
+// Configure app
+var app = builder.Build();
 app.ApplyMigrations();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
@@ -33,7 +36,11 @@ if (!app.Environment.IsProduction())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+
+// Start application
 app.Run();
+
 
 public partial class Program { }
 
