@@ -13,7 +13,8 @@ public record VacationItem
 
 
 
-public class VacationItemConfiguration : IEntityTypeConfiguration<VacationItem>
+public class VacationItemConfiguration 
+    : IEntityTypeConfiguration<VacationItem>
 {
     public void Configure(EntityTypeBuilder<VacationItem> builder)
     {
