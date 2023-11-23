@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Objectbay.Vacation.WebApi.DbModels;
 
-public class VacationItem
+public record VacationItem
 {
     public Guid Id { get; init; }
-    
+
     public required string Name { get; set; }
     public VacationItemCategory? Category { get; set; }
 }
