@@ -21,23 +21,31 @@ public class VacationItemsController : ControllerBase
 
 
     [HttpPost]
-    public async Task<IActionResult> CreateVacationItem([FromBody] VacationItem vacationItem)
+    public async Task<IActionResult> CreateVacationItem(
+        [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
 
+        var vacationItem = await _db.AddAsync(new VacationItem {
+            Name = vacationItemRequest.Name,
+            Category = vacationItemRequest.Category
+        });
 
-        await _db.AddAsync(vacationItem);
         await _db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetVacationItem), new { id = vacationItem.Id }, null);
+        return CreatedAtAction(
+            nameof(GetVacationItem), 
+            new { id = vacationItem.Entity.Id }, null
+        );
     }
 
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetVacationItem([FromRoute] Guid id)
+    public async Task<IActionResult> GetVacationItem(
+        [FromRoute] Guid id)
     {
         var vacationItem = await _db.VacationItems.FindAsync(id);
         if (vacationItem == null)
@@ -58,13 +66,15 @@ public class VacationItemsController : ControllerBase
         var filterCategories = category != null;
         if (filterCategories)
         {
-            vacationsQuery = vacationsQuery.Where(it => it.Category == category);
+            vacationsQuery = vacationsQuery
+                .Where(it => it.Category == category);
         }
 
         var filterItemName = itemName != null;
         if (filterItemName)
         {
-            vacationsQuery = vacationsQuery.Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
+            vacationsQuery = vacationsQuery
+                .Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
         }
 
         return Ok(await vacationsQuery.ToListAsync());
@@ -72,7 +82,9 @@ public class VacationItemsController : ControllerBase
 
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateVacationItem([FromRoute] Guid id, [FromBody] VacationItem vacationItem)
+    public async Task<IActionResult> UpdateVacationItem(
+        [FromRoute] Guid id, 
+        [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
         if (!ModelState.IsValid)
         {
@@ -85,8 +97,8 @@ public class VacationItemsController : ControllerBase
             return BadRequest($"Id {id} does not exist.");
         }
 
-        vacationItemToUpdate.Name = vacationItem.Name;
-        vacationItemToUpdate.Category = vacationItem.Category;
+        vacationItemToUpdate.Name = vacationItemRequest.Name;
+        vacationItemToUpdate.Category = vacationItemRequest.Category;
 
         await _db.SaveChangesAsync();
 
@@ -94,7 +106,8 @@ public class VacationItemsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteVacationItem([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteVacationItem(
+        [FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
         {
