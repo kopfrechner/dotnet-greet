@@ -15,7 +15,7 @@ public class ApplicationDbContext : DbContext
             new VacationItem
             {
                 Id = Guid.Parse("3fb362d5-18c3-45de-813e-6147adbc3d9a"),
-                Name = "Badehose",
+                Name = "Bikini",
                 Category = VacationItemCategory.CLOTHING
             },
             new VacationItem

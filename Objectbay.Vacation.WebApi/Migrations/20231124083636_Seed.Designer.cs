@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Objectbay.Vacation.WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231124083636_Seed")]
+    partial class Seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +23,6 @@ namespace Objectbay.Vacation.WebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Objectbay.Vacation.WebApi.DbModels.Vacation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vacation");
-                });
 
             modelBuilder.Entity("Objectbay.Vacation.WebApi.DbModels.VacationItem", b =>
                 {
@@ -49,12 +37,7 @@ namespace Objectbay.Vacation.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("VacationId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VacationId");
 
                     b.ToTable("VacationItems");
 
@@ -63,7 +46,7 @@ namespace Objectbay.Vacation.WebApi.Migrations
                         {
                             Id = new Guid("3fb362d5-18c3-45de-813e-6147adbc3d9a"),
                             Category = 0,
-                            Name = "Bikini"
+                            Name = "Badehose"
                         },
                         new
                         {
@@ -71,20 +54,6 @@ namespace Objectbay.Vacation.WebApi.Migrations
                             Category = 3,
                             Name = "Sonnencreme"
                         });
-                });
-
-            modelBuilder.Entity("Objectbay.Vacation.WebApi.DbModels.VacationItem", b =>
-                {
-                    b.HasOne("Objectbay.Vacation.WebApi.DbModels.Vacation", "Vacation")
-                        .WithMany("VacationItems")
-                        .HasForeignKey("VacationId");
-
-                    b.Navigation("Vacation");
-                });
-
-            modelBuilder.Entity("Objectbay.Vacation.WebApi.DbModels.Vacation", b =>
-                {
-                    b.Navigation("VacationItems");
                 });
 #pragma warning restore 612, 618
         }

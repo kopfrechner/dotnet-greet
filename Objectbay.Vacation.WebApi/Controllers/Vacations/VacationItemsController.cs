@@ -73,7 +73,7 @@ public class VacationItemsController : ControllerBase
                 .Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
         }
 
-        return Ok(await vacationsQuery.ToListAsync());
+        return Ok(await vacationsQuery.Select(x => new {x.Id}).ToListAsync());
     }
 
 
