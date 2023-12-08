@@ -2,11 +2,14 @@
 
 #nullable disable
 
-namespace Objectbay.Vacation.WebApi.Migrations {
+namespace Objectbay.Vacation.WebApi.Migrations
+{
     /// <inheritdoc />
-    public partial class AddVacationEntity : Migration {
+    public partial class AddVacationEntity : Migration
+    {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder) {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.AddColumn<Guid>(
                 name: "VacationId",
                 table: "VacationItems",
@@ -15,11 +18,13 @@ namespace Objectbay.Vacation.WebApi.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Vacation",
-                columns: table => new {
+                columns: table => new
+                {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Vacation", x => x.Id);
                 });
 
@@ -51,7 +56,8 @@ namespace Objectbay.Vacation.WebApi.Migrations {
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder) {
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.DropForeignKey(
                 name: "FK_VacationItems_Vacation_VacationId",
                 table: "VacationItems");

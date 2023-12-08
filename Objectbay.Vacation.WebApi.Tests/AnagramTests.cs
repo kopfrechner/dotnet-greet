@@ -4,12 +4,14 @@ using Net.Codecrete.QrCodeGenerator;
 
 namespace Objectbay.Vacation.WebApi.Tests;
 
-public class AnagramTests {
+public class AnagramTests
+{
     [Theory]
     [InlineData("Elvis", "Lives")]
     [InlineData("Dormitory", "Dirty Room")]
     [InlineData("Vacation time", "I am not active")]
-    public void Check_anagram(string word, string anagram) {
+    public void Check_anagram(string word, string anagram)
+    {
         var checkableWord = word.ToCheckableAnagram();
         var checkableAnagram = anagram.ToCheckableAnagram();
 
@@ -17,7 +19,8 @@ public class AnagramTests {
     }
 
     [Fact]
-    public void Generate_QR_Code() {
+    public void Generate_QR_Code()
+    {
         var qr = QrCode.EncodeText("https://www.praxis-angelika-lang.at", QrCode.Ecc.Medium);
         string svg = qr.ToSvgString(4);
         File.WriteAllText("angelika-lang-qr.svg", svg, Encoding.UTF8);
@@ -25,7 +28,8 @@ public class AnagramTests {
     }
 }
 
-internal static class AnagramTrimmerExtension {
+internal static class AnagramTrimmerExtension
+{
     public static string ToCheckableAnagram(this string word) =>
         string.Concat(
             word.ToLower()

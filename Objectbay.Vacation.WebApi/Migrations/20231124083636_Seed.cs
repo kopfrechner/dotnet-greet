@@ -4,11 +4,14 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Objectbay.Vacation.WebApi.Migrations {
+namespace Objectbay.Vacation.WebApi.Migrations
+{
     /// <inheritdoc />
-    public partial class Seed : Migration {
+    public partial class Seed : Migration
+    {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder) {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.InsertData(
                 table: "VacationItems",
                 columns: new[] { "Id", "Category", "Name" },
@@ -20,7 +23,8 @@ namespace Objectbay.Vacation.WebApi.Migrations {
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder) {
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.DeleteData(
                 table: "VacationItems",
                 keyColumn: "Id",
