@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +11,7 @@ builder.Services.AddSwaggerGen();
 
 
 // Configure DB
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
+builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseNpgsql(builder.Configuration.GetConnectionString("mypostgres"));
 });
 
@@ -27,8 +26,7 @@ builder.Services.Configure<Objectbay.Vacation.WebApi.Controllers.GreetOptions>(
 var app = builder.Build();
 app.ApplyMigrations();
 
-if (!app.Environment.IsProduction())
-{
+if (!app.Environment.IsProduction()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -44,12 +42,9 @@ app.Run();
 
 public partial class Program { }
 
-public static class WebApplicationExtensions
-{
-    public static void ApplyMigrations(this WebApplication app)
-    {
-        using (var scope = app.Services.CreateScope())
-        {
+public static class WebApplicationExtensions {
+    public static void ApplyMigrations(this WebApplication app) {
+        using (var scope = app.Services.CreateScope()) {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             db.Database.Migrate();
         }

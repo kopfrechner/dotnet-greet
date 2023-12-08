@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+
 namespace Objectbay.Vacation.WebApi.Controllers.Greetings;
 
 [ApiController]
@@ -6,12 +7,10 @@ namespace Objectbay.Vacation.WebApi.Controllers.Greetings;
 public class GreetingsController(
     ILogger<GreetingsController> logger,
     GreetOptions greetOptions
-) : ControllerBase
-{
+) : ControllerBase {
 
     [HttpGet(Name = "GreetMe")]
-    public string GreetMe()
-    {
+    public string GreetMe() {
         logger.LogInformation("GreetMe called");
         return $"Hello {greetOptions.Who}, you're using {greetOptions.From} environment";
     }

@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Objectbay.Vacation.WebApi.Tests;
 
-public class GreetingsControllerIT(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
-{
+public class GreetingsControllerIT(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>> {
     [Fact]
-    public async Task Get_Greeting()
-    {
+    public async Task Get_Greeting() {
         // Arrange
         var client = factory.CreateClient();
 

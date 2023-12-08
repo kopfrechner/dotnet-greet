@@ -1,12 +1,10 @@
 using System.Collections.ObjectModel;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Objectbay.Vacation.WebApi.DbModels;
 
-public record VacationItem
-{
+public record VacationItem {
     public Guid Id { get; init; }
 
     public required string Name { get; set; }
@@ -16,8 +14,7 @@ public record VacationItem
     public virtual Vacation? Vacation { get; set; }
 }
 
-public record Vacation
-{
+public record Vacation {
     public Guid Id { get; init; }
     public required string Name { get; set; }
 
@@ -25,10 +22,8 @@ public record Vacation
 }
 
 public class VacationConfiguration
-    : IEntityTypeConfiguration<Vacation>
-{
-    public void Configure(EntityTypeBuilder<Vacation> builder)
-    {
+    : IEntityTypeConfiguration<Vacation> {
+    public void Configure(EntityTypeBuilder<Vacation> builder) {
         builder.HasKey(b => b.Id);
         builder.Property(b => b.Name).IsRequired();
 
@@ -40,17 +35,14 @@ public class VacationConfiguration
 
 
 public class VacationItemConfiguration
-    : IEntityTypeConfiguration<VacationItem>
-{
-    public void Configure(EntityTypeBuilder<VacationItem> builder)
-    {
+    : IEntityTypeConfiguration<VacationItem> {
+    public void Configure(EntityTypeBuilder<VacationItem> builder) {
         builder.HasKey(b => b.Id);
         builder.Property(b => b.Name).IsRequired();
     }
 }
 
-public enum VacationItemCategory
-{
+public enum VacationItemCategory {
     CLOTHING,
     ACCESSORIES,
     ELECTRONICS,

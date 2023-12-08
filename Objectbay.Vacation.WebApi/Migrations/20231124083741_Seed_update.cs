@@ -1,16 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Objectbay.Vacation.WebApi.Migrations
-{
+namespace Objectbay.Vacation.WebApi.Migrations {
     /// <inheritdoc />
-    public partial class Seed_update : Migration
-    {
+    public partial class Seed_update : Migration {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.UpdateData(
                 table: "VacationItems",
                 keyColumn: "Id",
@@ -20,8 +16,7 @@ namespace Objectbay.Vacation.WebApi.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.UpdateData(
                 table: "VacationItems",
                 keyColumn: "Id",
