@@ -12,18 +12,19 @@ public record VacationItem
     public required string Name { get; set; }
     public VacationItemCategory? Category { get; set; }
 
-    public Guid? VacationId {get;set;}
-    public virtual Vacation? Vacation {get; set;}
+    public Guid? VacationId { get; set; }
+    public virtual Vacation? Vacation { get; set; }
 }
 
-public record Vacation {
-    public Guid Id {get; init;}
+public record Vacation
+{
+    public Guid Id { get; init; }
     public required string Name { get; set; }
 
-    public virtual Collection<VacationItem>? VacationItems {get;set;}
+    public virtual Collection<VacationItem>? VacationItems { get; set; }
 }
 
-public class VacationConfiguration 
+public class VacationConfiguration
     : IEntityTypeConfiguration<Vacation>
 {
     public void Configure(EntityTypeBuilder<Vacation> builder)
@@ -38,7 +39,7 @@ public class VacationConfiguration
 }
 
 
-public class VacationItemConfiguration 
+public class VacationItemConfiguration
     : IEntityTypeConfiguration<VacationItem>
 {
     public void Configure(EntityTypeBuilder<VacationItem> builder)

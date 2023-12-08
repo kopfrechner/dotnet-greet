@@ -3,21 +3,13 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Objectbay.Vacation.WebApi.Tests;
 
-public class GreetingsControllerIT
-    : IClassFixture<WebApplicationFactory<Program>>
+public class GreetingsControllerIT(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
-
-    public GreetingsControllerIT(WebApplicationFactory<Program> factory)
-    {
-        _factory = factory;
-    }
-
     [Fact]
     public async Task Get_Greeting()
     {
         // Arrange
-        var client = _factory.CreateClient();
+        var client = factory.CreateClient();
 
         // Act
         var response = await client.GetAsync("/greetings");

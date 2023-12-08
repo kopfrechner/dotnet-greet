@@ -6,34 +6,23 @@ namespace Objectbay.Vacation.WebApi.Controllers.Vacations;
 
 [ApiController]
 [Route("[controller]")]
-public class VacationItemsController : ControllerBase
+public class VacationItemsController(ApplicationDbContext db) : ControllerBase
 {
-    private readonly ILogger<VacationItemsController> _logger;
-    private readonly ApplicationDbContext _db;
-
-    public VacationItemsController(
-        ILogger<VacationItemsController> logger,
-        ApplicationDbContext db)
-    {
-        _logger = logger;
-        _db = db;
-    }
-
-
     [HttpPost]
     public async Task<IActionResult> CreateVacationItem(
         [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
-        var vacationItem = new VacationItem {
+        var vacationItem = new VacationItem
+        {
             Name = vacationItemRequest.Name,
             Category = vacationItemRequest.Category
         };
-        
-        await _db.AddAsync(vacationItem);
-        await _db.SaveChangesAsync();
 
-        return CreatedAtAction( 
-            nameof(GetVacationItem), 
+        await db.AddAsync(vacationItem);
+        await db.SaveChangesAsync();
+
+        return CreatedAtAction(
+            nameof(GetVacationItem),
             new { id = vacationItem.Id }, null
         );
     }
@@ -43,7 +32,7 @@ public class VacationItemsController : ControllerBase
     public async Task<IActionResult> GetVacationItem(
         [FromRoute] Guid id)
     {
-        var vacationItem = await _db.VacationItems.FindAsync(id);
+        var vacationItem = await db.VacationItems.FindAsync(id);
         if (vacationItem == null)
         {
             return BadRequest($"Id {id} does not exist.");
@@ -57,7 +46,7 @@ public class VacationItemsController : ControllerBase
         [FromQuery] VacationItemCategory? category = null,
         [FromQuery] string? itemName = null)
     {
-        var vacationsQuery = _db.VacationItems.AsQueryable();
+        var vacationsQuery = db.VacationItems.AsQueryable();
 
         var filterCategories = category != null;
         if (filterCategories)
@@ -73,16 +62,16 @@ public class VacationItemsController : ControllerBase
                 .Where(it => EF.Functions.Like(it.Name, $"%{itemName!}%"));
         }
 
-        return Ok(await vacationsQuery.Select(x => new {x.Id}).ToListAsync());
+        return Ok(await vacationsQuery.ToListAsync());
     }
 
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVacationItem(
-        [FromRoute] Guid id, 
+        [FromRoute] Guid id,
         [FromBody] CreateOrUpdateVacationItem vacationItemRequest)
     {
-        var vacationItemToUpdate = await _db.VacationItems.FindAsync(id);
+        var vacationItemToUpdate = await db.VacationItems.FindAsync(id);
         if (vacationItemToUpdate == null)
         {
             return BadRequest($"Id {id} does not exist.");
@@ -91,7 +80,7 @@ public class VacationItemsController : ControllerBase
         vacationItemToUpdate.Name = vacationItemRequest.Name;
         vacationItemToUpdate.Category = vacationItemRequest.Category;
 
-        await _db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
         return Ok();
     }
@@ -100,8 +89,8 @@ public class VacationItemsController : ControllerBase
     public async Task<IActionResult> DeleteVacationItem(
         [FromRoute] Guid id)
     {
-        _db.Remove(_db.VacationItems.Single(x => x.Id == id));
-        await _db.SaveChangesAsync();
+        db.Remove(db.VacationItems.Single(x => x.Id == id));
+        await db.SaveChangesAsync();
 
         return NoContent();
     }

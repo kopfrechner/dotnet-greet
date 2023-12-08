@@ -19,11 +19,12 @@ public class AnagramTests
     }
 
     [Fact]
-    public void Generate_QR_Code() {
+    public void Generate_QR_Code()
+    {
         var qr = QrCode.EncodeText("https://www.praxis-angelika-lang.at", QrCode.Ecc.Medium);
         string svg = qr.ToSvgString(4);
         File.WriteAllText("angelika-lang-qr.svg", svg, Encoding.UTF8);
-    
+
     }
 }
 
